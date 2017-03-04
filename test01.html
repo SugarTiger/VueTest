@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>这是第一个VueTest</title>
+	</head>
+	<body>
+		<!-- view -->
+		<div id="app">
+			<p>{{message}}</p>
+			<input type="text" v-model="message"/>
+		</div>
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script>
+			// Model
+			var exampleData={
+				message:"Hello boy!"
+			}
+			// 创建一个 Vue 实例或 "ViewModel"
+        	// 它连接 View 与 Model
+
+        	new Vue({
+        		el:'#app',
+        		data:exampleData
+        	})
+        	/*
+			new Vue({
+        		el:'#app',
+        		data:{
+				message:"Hello boy!"
+			}
+        	})
+        	*/
+		</script>
+	</body>
+	</html>

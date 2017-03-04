@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>v-bind</title>
+	<style>
+		.pagination li{
+			float: left;
+			list-style:none;
+			margin: 10px;
+		}
+		a{
+			text-decoration: none;
+			line-height:20px;
+			display:block;
+			width:20px;
+			height:20px;
+			text-align:center;
+		}
+		a:hover{
+			background:red;
+		}
+		.active{
+			background: burlywood;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<ul class="pagination">
+			<li v-for="n in pageCount">
+				<a href="javascript:void(0)" v-bind:class="activeNumber === n + 1?'active':''">{{n}}</a>
+			</li>
+		</ul>
+	</div>
+	<script type="text/javascript" src="js/vue.js"></script>
+	<script>
+		var vm = new Vue({
+			el:"#app",
+			data:{
+				activeNumber:2,
+				pageCount:10
+			}
+		})
+	</script>
+</body>
+</html>
