@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>dome1</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" id="it" v-model.lazy="something"/>
+        <label for="it">{{something}}</label>
+        <input type="checkbox" id="checkbox" v-model="checked">
+        <label for="checkbox">{{ checked }}</label>
+        <input type="checkbox" v-model="toggle" v-bind:true-value="a" v-bind:false-value="b" id="ss">
+        <label for="ss">{{ toggle }}</label>
+    </div>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                checked: true,
+                a:'aaa',
+                b:'bbb',
+                toggle:this.a,
+                something:''
+            },
+            computed: {
+                evenNumbers: function () {
+                    return this.numbers.filter(function (number) {
+                        return number % 2 === 0
+                    })
+                }
+            },
+            methods: {
+                warn: function (message, event) {
+                    // 现在我们可以访问原生事件对象
+                    if (event) event.preventDefault()
+                    alert(message)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

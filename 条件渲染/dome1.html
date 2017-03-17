@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>dome1</title>
+    <style>
+        .static{
+            color:#ff3;
+            background-color: #669;
+        }
+        .active{
+            width:155px;
+            height:100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <template v-if="loginType === 'username'">
+            <label>Username</label>
+            <input placeholder="Enter your username"  key="username-input">
+        </template>
+        <template v-else>
+            <label>Email</label>
+            <input placeholder="Enter your email address"  key="email-input">
+        </template>
+        <button v-on:click="change">按一下切换登录</button>
+    </div>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                loginType:'username'
+            },
+            methods:{
+                change:function(){
+                    if(this.loginType !== 'username'){
+                        this.loginType = 'username';
+                    }else{
+                        this.loginType = 'email';
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

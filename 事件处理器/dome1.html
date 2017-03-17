@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>dome1</title>
+</head>
+
+<body>
+    <div id="app">
+        <li v-for="n in evenNumbers">{{ n }}</li>
+        <button v-on:click="warn('Form cannot be submitted yet.', $event)">Submit</button>
+        <input type="checkbox" id="checkbox" v-model="checked">
+        <label for="checkbox">{{ checked }}</label>
+    </div>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                numbers: [1, 2, 3, 4, 5],
+                checked:true
+            },
+            computed: {
+                evenNumbers: function () {
+                    return this.numbers.filter(function (number) {
+                        return number % 2 === 0
+                    })
+                }
+            },
+            methods: {
+                warn: function (message, event) {
+                    // 现在我们可以访问原生事件对象
+                    if (event) event.preventDefault()
+                    alert(message)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
