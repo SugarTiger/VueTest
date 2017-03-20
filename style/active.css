@@ -1,4 +1,24 @@
-div{
-    color:#ff3;
+div {
+    color: #ff3;
     background-color: #669;
+}
+
+
+/**/
+
+div#blogTitle .title a {
+    font-size: 28px;
+}
+
+div#navigator ul#navList li a:hover {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=7, Direction=0, Color=#5AB2CE)";
+    /*IE 8*/
+    -moz-box-shadow: 0 0 7px 2px rgba(90, 178, 206, 0.9);
+    /*FF 3.5+*/
+    -webkit-box-shadow: 0 0 7px 2px rgba(90, 178, 206, 0.9);
+    /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+    box-shadow: 0 0 7px 2px rgba(90, 178, 206, 0.9);
+    /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+    filter: progid: DXImageTransform.Microsoft.Shadow(Strength=7, Direction=135, Color=#5AB2CE);
+    /*IE 5.5-7*/
 }

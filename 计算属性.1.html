@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p id="app">a =  {{ a }},b = {{ b }}</p>
+    <div id="demo"></div>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script>
+        var vm= new Vue({
+        		el:'#app',
+                data:{
+                    a:2,
+                },
+        		computed: {
+                    // 一个计算属性的getter
+                    b: function () {
+                        // 'this'指向vm实例
+                        return this.a+1
+                    }
+                }
+        	});
+        
+        new Vue({
+            el: '#demo',
+            data: {
+                firstName: 'Foo',
+                lastName: 'Bar'
+                // fullName: 'li zefei'
+            },
+            computed: {
+                fullName: {
+                    // getter
+                    get: function () {
+                    return this.firstName + ' ' + this.lastName
+                    },
+                    // setter
+                    set: function (newValue) {
+                    var names = newValue.split(' ')
+                    this.firstName = names[0]
+                    this.lastName = names[names.length - 1]
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

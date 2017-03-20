@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>dome1</title>
+</head>
+
+<body>
+    
+    <div id="app">
+    <!--<component  is="{{currentView}}" ></component>-->
+    <home></home>
+</div>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                currentView: 'home',
+                homes:'home',
+                posts:'posts',
+                archive:'archive'
+            },
+            components: {
+                home: {template:'<button>{{ this.homes }}</button>',},
+                posts: { template:'<button>{{ posts }}</button>', },
+                archive: { template:'<button>{{ archive }}</button>', }
+            }
+        })
+    </script>
+</body>
+
+</html>
