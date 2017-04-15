@@ -1,42 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
-    <title>test01</title>
+    <title>这是第一个VueTest</title>
 </head>
 
 <body>
-    <table>
-        <tr>
-            <td>
-                <p>1加班</p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <p>2加班</p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <p>3加班</p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <p>4加班</p>
-            </td>
-        </tr>
-    </table>
-    <script src="js/jquery-3.1.1.min.js"></script>
+    <!-- view -->
+    <div id="checkbox">
+        <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+        <label for="jack">Jack</label>
+        <input type="checkbox" id="john" value="John" v-model="checkedNames">
+        <label for="john">John</label>
+        <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+        <label for="mike">Mike</label>
+        <br>
+        <span>Checked names: {{ checkedNames }}</span>
+    </div>
+    <div id="radio">
+        <input type="radio" id="one" value="One" v-model="picked">
+        <label for="one">One</label>
+        <br>
+        <input type="radio" id="two" value="Two" v-model="picked">
+        <label for="two">Two</label>
+        <br>
+        <span>Picked: {{ picked }}</span>
+    </div>
+    <script type="text/javascript" src="js/vue.js"></script>
     <script>
-        $(function () {
-
-            $('tr').click(function (event) {
-                alert($(this).find('p').text())
-            });
-
+        new Vue({
+            el: '#checkbox',
+            data: {
+                checkedNames: []
+            }
+        })
+        new Vue({
+            el: '#radio',
+            data: {
+                picked: ''
+            }
         })
     </script>
 </body>

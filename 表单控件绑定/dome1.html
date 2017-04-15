@@ -8,12 +8,30 @@
 
 <body>
     <div id="app">
-        <input type="text" id="it" v-model.lazy="something"/>
+        <input type="text" id="it" v-model.lazy="something" />
         <label for="it">{{something}}</label>
         <input type="checkbox" id="checkbox" v-model="checked">
         <label for="checkbox">{{ checked }}</label>
+        <p>===============================================================</p>
         <input type="checkbox" v-model="toggle" v-bind:true-value="a" v-bind:false-value="b" id="ss">
         <label for="ss">{{ toggle }}</label>
+        <p>===============================================================</p>
+        <select v-model="selected">
+            <!-- 内联对象字面量 -->
+            <option v-bind:value="{ number: 123 }">123</option>
+        </select>
+        <p>===============================================================</p>
+        <p>.lazy,在 "change" 而不是 "input" 事件中更新</p>
+        <input v-model.lazy="msg">
+        <p>{{msg}}</p>
+        <p>===============================================================</p>
+        <p>.number,将用户的输入值转为 Number 类型</p>
+        <input v-model.number="age" type="number">
+        <p>{{typeof age}}</p>
+        <p>===============================================================</p>
+        <p>如果要自动过滤用户输入的首尾空格，可以添加 trim 修饰符到 v-model 上过滤输入：</p>
+        <input v-model.trim="fkong">
+        <p>{{fkong}}</p>
     </div>
     <script type="text/javascript" src="../js/vue.js"></script>
     <script>
@@ -21,20 +39,24 @@
             el: '#app',
             data: {
                 checked: true,
-                a:'aaa',
-                b:'bbb',
-                toggle:this.a,
-                something:''
+                a: 'aaa',
+                b: 'bbb',
+                toggle: 'aaa',
+                something: '',
+                selected: null,
+                msg: "",
+                age: "",
+                fkong: ""
             },
             computed: {
-                evenNumbers: function () {
-                    return this.numbers.filter(function (number) {
+                evenNumbers: function() {
+                    return this.numbers.filter(function(number) {
                         return number % 2 === 0
                     })
                 }
             },
             methods: {
-                warn: function (message, event) {
+                warn: function(message, event) {
                     // 现在我们可以访问原生事件对象
                     if (event) event.preventDefault()
                     alert(message)

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>任务</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        #app {
+            width: 500px;
+            margin: 10px auto;
+            border: 1px solid #0ec00c;
+            position: relative;
+        }
+        
+        #app header {
+            height: 44px;
+            width: 100%;
+            text-align: center;
+            line-height: 44px;
+            background-color: #0ec00c;
+            font-size: 1.5rem;
+            color: azure;
+        }
+        
+        #app input {
+            display: block;
+            width: 80%;
+            text-align: center;
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: 4px auto;
+        }
+        
+        #app ol {
+            width: 77%;
+            margin: 38px auto 22px auto;
+            padding-left: 16px;
+        }
+        
+        #app ol li {
+            margin: 10px 0;
+        }
+        
+        #app ol li button {
+            background: red;
+            color: #fff;
+            border: none;
+            margin-left: 10px;
+            padding: 0 3px;
+        }
+        
+        #app p {
+            display: none;
+        }
+        
+        #app p.active {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 13px;
+            color: #777;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <header>任务栏</header>
+        <input id="todo" type="text" v-model.trim="newTitle" @keyup.enter="addTodo" placeholder="输入任务,回车添加" />
+        <ol>
+            <li is="todo-item" v-for="(todo,index) in todos" :title="todo" :index="index" @remove="removeTodo(index);"></li>
+        </ol>
+        <p v-bind:class="{ active: isEmpt }">快点计划起来吧...</p>
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        Vue.component("todo-item", {
+            template: '<li>{{title}}<button v-on:click = "$emit(\'remove\')">X</button></li>',
+            props: ['title', "index"]
+        });
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                newTitle: "",
+                todos: [
+                    "早睡早起", "吃早餐", "吃午餐", "吃晚餐"
+                ],
+                isEmpt: false
+            },
+            methods: {
+                addTodo: function() {
+                    if (this.newTitle == "") {
+                        alert("任务不能为空哦！！！");
+                        return;
+                    }
+                    this.todos.push(this.newTitle);
+                    this.newTitle = "";
+                    this.isEmpt = false;
+                },
+                removeTodo: function(index) {
+                    this.todos.splice(index, 1)
+                    if (!this.todos.length) {
+                        this.isEmpt = true;
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

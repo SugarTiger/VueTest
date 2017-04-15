@@ -1,48 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>v-for</title>
+    <meta charset="UTF-8">
+    <title>v-for</title>
 </head>
+
 <body>
-	<div id="app">
-		<table>
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Age</th>
-					<th>Sex</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr v-for="person in people">
-					<td>{{person.name}}</td>
-					<td>{{person.age}}</td>
-					<td>{{person.sex}}</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<script type="text/javascript" src="js/vue.js"></script>
-	<script>
-		var vm = new Vue({
-			el:"#app",
-			data:{
-				people:[{
-					name:'Jack',
-					age:30,
-					sex:'Male'
-				},{
-					name:'Bill',
-					age:28,
-					sex:'Male'
-				},{
-					name:'Chris',
-					age:25,
-					sex:'Female'
-				}]
-			}
-		})
-	</script>
+    <div id="app">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Sex</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="person in people">
+                    <td>{{person.name}}</td>
+                    <td>{{person.age}}</td>
+                    <td>{{person.sex}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--22222222-->
+    <div id="app2">
+        <li v-for="n in evenNumbers">{{ n }}</li>
+
+    </div>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+                el: "#app",
+                data: {
+                    people: [{
+                        name: 'Jack',
+                        age: 30,
+                        sex: 'Male'
+                    }, {
+                        name: 'Bill',
+                        age: 28,
+                        sex: 'Male'
+                    }, {
+                        name: 'Chris',
+                        age: 25,
+                        sex: 'Female'
+                    }]
+                }
+            })
+            // 显示过滤-排序结果
+        var vm2 = new Vue({
+            el: "#app2",
+            data: {
+                numbers: [1, 2, 3, 4, 5]
+            },
+            computed: {
+                evenNumbers: function() {
+                    return this.numbers.filter(function(number) {
+                        return number % 2 === 0
+                    })
+                }
+            }
+        });
+    </script>
 </body>
+
 </html>

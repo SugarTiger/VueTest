@@ -11,9 +11,9 @@
 <body>
     <form name="form1" id="app1">
         请输入一个浮点型的数字：
-        <input type="text" name="num1" id="num1" v-model="num1" />
-        <select name="select" id="select">
-            <option v-for="item in selects" :value = "item.text">{{item.text}}</option>
+        <input type="text" name="num1" id="num1" v-model.trim="num1" />
+        <select name="select" id="select" v-model="selected">
+            <option v-for="item in selects"  :value = "item.text">{{item.text}}</option>
         </select>
         <input type="button" name="=" value="=" @click="getRu()" />
         <input type="text" name="num2" id="num2" value="" v-model="num2" />
@@ -25,23 +25,26 @@
             data: {
                 num1: "",
                 num2: "",
+                selected: "ceil(x)",
                 selects: [{
                     text: "ceil(x)"
                 }, {
                     text: "floor(x)"
                 }, {
                     text: "round(x)"
-                }]
+                }],
             },
             watch: {
                 num1: function() {
+                    this.getRu();
+                },
+                selected: function() {
                     this.getRu();
                 }
             },
             methods: {
                 getRu: function() {
-                    var select = document.getElementById("select").value;
-                    switch (select) {
+                    switch (this.selected) {
                         case "ceil(x)":
                             this.num2 = Math.ceil(this.num1);
                             break;
