@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>todo-item</title>
+</head>
+<div id="app">
+    <b style="display:none">{{a}}</b>
+    <button v-bind:disabled="someDynamicCondition">Button</button>
+</div>
+<button onclick="test()">挂载</button>
+
+<body>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script>
+        var obj = {
+            a: "lizefei",
+            someDynamicCondition: true
+        }
+        var vm = new Vue({
+            data: obj
+        })
+
+        function test() {
+            vm.$mount("#app");
+
+            document.getElementById("app").firstChild.style.display = "block";
+        }
+    </script>
+</body>
+
+</html>

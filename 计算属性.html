@@ -12,10 +12,13 @@
     <!--<p id="app">Reversed message: "{{ Reversed }}"</p>-->
     <!--<div id="demo">{{ firstName}}</div>-->
     <div id="watch">
-        firstName:<input type="text" name="li"  v-model="firstName">
-        <br>
-        lastName:<input type="text" name="fei"  v-model="lastName">
+        firstName:<input type="text" name="li" v-model="firstName">
+        <br> lastName:
+        <input type="text" name="fei" v-model="lastName">
         <p>fullName: {{fullName}}</p>
+    </div>
+    <div id="app">
+        {{mgs}}<br> {{Reversed}}
     </div>
     <script type="text/javascript" src="js/vue.js"></script>
     <script>
@@ -27,23 +30,26 @@
                 fullName: 'a fei'
             },
             watch: {
-                firstName: function (val) {
+                firstName: function(val) {
                     this.fullName = val + ' ' + this.lastName
                 },
-                lastName: function (val) {
+                lastName: function(val) {
                     this.fullName = this.firstName + ' ' + val
                 }
             }
         })
 
-        // new Vue({
-        //     el: '#app',
-        //     computed: {
-        //         Reversed: function () {
-        //             return Date.now()
-        //         }
-        //     }
-        // });
+        new Vue({
+            el: '#app',
+            data: {
+                mgs: Date.now()
+            },
+            computed: {
+                Reversed: function() {
+                    return this.mgs
+                }
+            }
+        });
 
         // var vm = new Vue({
         //     el: '#demo',

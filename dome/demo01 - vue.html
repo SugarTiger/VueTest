@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>demo01</title>
+</head>
+
+<body>
+    <form name="form1" id="app1">
+        请输入一个浮点型的数字：
+        <input type="text" name="num1" id="num1" v-model="num1" />
+        <select name="select" id="select">
+            <option v-for="item in selects" :value = "item.text">{{item.text}}</option>
+        </select>
+        <input type="button" name="=" value="=" @click="getRu()" />
+        <input type="text" name="num2" id="num2" value="" v-model="num2" />
+    </form>
+    <script src="../js/vue.js"></script>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: "#app1",
+            data: {
+                num1: "",
+                num2: "",
+                selects: [{
+                    text: "ceil(x)"
+                }, {
+                    text: "floor(x)"
+                }, {
+                    text: "round(x)"
+                }]
+            },
+            watch: {
+                num1: function() {
+                    this.getRu();
+                }
+            },
+            methods: {
+                getRu: function() {
+                    var select = document.getElementById("select").value;
+                    switch (select) {
+                        case "ceil(x)":
+                            this.num2 = Math.ceil(this.num1);
+                            break;
+                        case "floor(x)":
+                            this.num2 = Math.floor(this.num1);
+                            break;
+                        case "round(x)":
+                            this.num2 = Math.round(this.num1);
+                            break;
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

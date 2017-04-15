@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>todo-item</title>
+</head>
+<div id="app-7">
+    <ol>
+        <!--使用 v-bind 指令将待办项传到每一个重复的组件-->
+        <todo-item v-for="item in groceryList" v-bind:todos='item'></todo-item>
+    </ol>
+</div>
+
+<body>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        Vue.component('todo-item', {
+            props: ['todos'], //将数据从父作用域传到子组件
+            template: "<li>{{todos.text}}</li>"
+        })
+        var app7 = new Vue({
+            el: '#app-7',
+            data: {
+                groceryList: [{
+                    text: '水果1'
+                }, {
+                    text: '水果2'
+                }, {
+                    text: '水果3'
+                }]
+            },
+            created: function() {
+                // `this` 指向 vm 实例
+                console.log('now is: ' + new Date())
+            }
+        })
+        var vm = new Vue({
+            data: {
+                a: 1
+            },
+            created: function() {
+                // `this` 指向 vm 实例
+                console.log('now is: ' + new Date())
+            }
+        })
+    </script>
+</body>
+
+</html>

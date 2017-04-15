@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>demo02</title>
+</head>
+
+<body>
+    <div id="app">
+        <table width="410" border="1">
+            <tr>
+                <th width="62">时区</td>
+                    <th width="235">当前时间</td>
+            </tr>
+            <tr v-for="item in citys">
+                <td>
+                    <div align="center">{{item.text}}</div>
+                </td>
+                <td>
+                    <div align="center" :id="item.code"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                citys: [{
+                    code: "Beijing",
+                    text: "北京",
+                    num: 0
+                }, {
+                    code: "London",
+                    text: "伦敦",
+                    num: 8
+                }, {
+                    code: "USA",
+                    text: "美国",
+                    num: 12
+                }, {
+                    code: "France",
+                    text: "法国",
+                    num: 7
+                }]
+
+            },
+            methods: {
+                setTime: function(elemId, num) {
+                    var d = new Date();
+                    var H = d.getHours();
+                    if (num != 0) d.setHours(H - num); //此时的小时减去相差的小时，然后设置为 d 的小时，这样子即使是跨年，月，日，也会自动设置好的
+                    document.getElementById(elemId).innerHTML = "今天是" + d.getFullYear() + "年" + (d.getMonth() + 1) + "月" + d.getDate() + "日，星期" + d.getDay() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+                },
+                clock: function() {
+                    for (item in this.citys) {
+                        this.setTime(this.citys[item].code, this.citys[item].num);
+                    }
+                    setTimeout(this.clock, 1000); //刷新时间
+                }
+            },
+            mounted: function() {
+                this.clock();
+            }
+        });
+    </script>
+</body>
+
+</html>
