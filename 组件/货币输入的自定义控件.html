@@ -8,40 +8,43 @@
 
 <body>
     <div id="app">
-        <currency-input v-model="price"></currency-input>
+        <!--v-modle-->
+        <!--<currency-input v-model="price"></currency-input>-->
+        <!--上面示例的语法糖,加上.native修饰符可以访问$event对象-->
+        <currency-input v-bind:value="price" v-on:input.native="price = $event.target.value"></currency-input>
+        <!--简写-->
+        <!--<currency-input v-bind:value="price" v-on:input="price = arguments[0]"></currency-input>-->
     </div>
     <script type="text/javascript" src="../js/vue.js"></script>
     <script>
-        Vue.component('currency-input',{
-            template:'\
+        Vue.component('currency-input', {
+            // ref 被用来给元素或子组件注册引用信息。用在子组件上，引用就指向组件实例
+            template: '\
             <span>\
-                $\
-                <input\
-                ref="rinput"\
-                v-bind:value="values"\
-                v-on:input="updateValue($event.target.value)"\
+                $<input ref="rinput" v-bind:value="value" v-on:input="updateValue($event.target.value)"\
                 >\
             </span>\
             ',
-            props:['values'],
-            methods:{
+            props: ['value'],
+            methods: {
                 // 不是直接更新值，而是使用此方法来对输入值进行格式化和位数限制
-                updateValue:function(value){
+                updateValue: function(value) {
                     // 删除两侧的空格符,保留 2 小数位
-                    var formattedValue = value.trim().slice(0,value.indexOf('.')+3)
-                    //如果值不统一，手动覆盖以保持一致
-                    if(formattedValue !== value){
+                    var formattedValue = value.trim().slice(0, value.indexOf('.') + 3)
+                        //如果值不统一，手动覆盖以保持一致
+                    if (formattedValue !== value) {
                         this.$refs.rinput.value = formattedValue
                     }
-                    // 通过 input 事件发出数值
-                    this.$emit('input',Number(formattedValue))
+                    // 通过 input 事件发出数值,使得vm.price = Number(formattedValue),this不等于vm
+                    //所使用的是语法糖的写法，这句则可以省略,应为有price = $event.target.value,所以这种方法不容易出错
+                    this.$emit('input', Number(formattedValue))
                 }
             }
         })
-        new Vue({
-            el:"#app",
-            data:{
-                price:0
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                price: 0
             }
         })
     </script>

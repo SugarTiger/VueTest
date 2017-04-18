@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <tree-folder-contents :children="cc"></tree-folder-contents>
+    </div>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        Vue.component('tree-folder-contents', {
+            props: ['children'],
+            template: '<ul>\
+                        <li v-for="child in children">\
+                            <tree-folder v-if="child.children" :folder="child"/>\
+                            <span v-else>{{ child.name }}</span>\
+                        </li>\
+                    </ul>'
+        });
+        Vue.component('tree-folder', {
+            props: ['folder'],
+            template: '<p>\
+                            <span>{{ folder.name }}</span>\
+                            <tree-folder-contents :children="folder.children"/>\
+                       </p>'
+        });
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                cc: [{
+                    children: "00000",
+                    name: "第一个name"
+                }, {
+                    children: "",
+                    name: "222222"
+                }, {
+                    children: "",
+                    name: "4444444"
+                }]
+            }
+        })
+    </script>
+</body>
+
+</html>

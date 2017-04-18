@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-cc></my-cc>
+    </div>
+    <template id="ccc"> 
+        <h1>我是template标签里的东东</h1>
+    </template>
+    <!--等价于-->
+    <!--<script type="text/x-template" id="ccc">
+        <h1>我是type="text/x-template"标签里的东东</h1>
+    </script>-->
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        Vue.component('my-cc', {
+            template: '#ccc'
+        });
+        var vm = new Vue({
+            el: "#app",
+
+        })
+    </script>
+</body>
+
+</html>

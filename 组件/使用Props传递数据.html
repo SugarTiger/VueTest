@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>==============使用Props传递数据================</p>
+    <div id="app1">
+        <child my-message="hello!"></child>
+    </div>
+    <p>==============动态Props================</p>
+    <div id="app2">
+        <input v-model="parentMsg">
+        <br>
+        <child v-bind:my-message="parentMsg"></child>
+    </div>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        Vue.component("child", {
+            props: ["myMessage"],
+            template: "<span>{{normalizedSize}}</span>",
+            data: function() {
+                return {
+                    counter: this.myMessage + "改变了"
+                }
+            },
+            computed: {
+                normalizedSize: function() {
+                    return this.myMessage.trim().toLowerCase()
+                }
+            }
+        })
+        var vm1 = new Vue({
+            el: "#app1"
+        })
+        var vm2 = new Vue({
+            el: "#app2",
+            data: {
+                parentMsg: ""
+            }
+        })
+    </script>
+</body>
+
+</html>

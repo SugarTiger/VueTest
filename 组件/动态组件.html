@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<div id="example">
+    <!--<keep-alive>保留组件状态或避免重新渲染-->
+    <keep-alive include="home,posts,archive">
+        <component v-bind:is="currentView">
+            <!-- 组件在 vm.currentview 变化时改变！ -->
+        </component>
+    </keep-alive>
+</div>
+
+<body>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#example',
+            data: {
+                currentView: 'archive'
+            },
+            components: {
+                home: {
+                    template: '<p>home</p>',
+                },
+                posts: {
+                    template: '<p>posts</p>',
+                },
+                archive: {
+                    template: '<p>archive</p>'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

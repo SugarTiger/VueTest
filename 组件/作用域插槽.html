@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="parent">
+        <child>
+            <template scope="propssss">
+                <p>hello from parent</p>
+                <p>{{ propssss.texts }}</p>
+            </template>
+        </child>
+    </div>
+    <p>》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》</p>
+    <div id="app">
+        <my-awesome-list :items-c="itemsF">
+            <!-- 作用域插槽也可以是具名的 -->
+            <template slot="item" scope="props">
+                <li class="my-fancy-item">{{ props.text }}</li>
+            </template>
+        </my-awesome-list>
+    </div>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        Vue.component('child', {
+            template: '<div class="child">\
+                        <slot texts="hello from child"></slot>\
+                       </div>',
+        });
+        var vm1 = new Vue({
+            el: ".parent"
+        });
+        // 》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》
+        Vue.component('my-awesome-list', {
+            props: ['itemsC'],
+            template: '<ul>\
+                        <slot name="item"\
+                        v-for="item in itemsC"\
+                        :text="item.text">\
+                    <!-- 这里写入备用内容 -->\
+                        </slot>\
+                       </ul>'
+        });
+        var vm2 = new Vue({
+            el: "#app",
+            data: {
+                itemsF: [{
+                    text: 'f早睡身体好'
+                }, {
+                    text: 'f早起'
+                }, {
+                    text: 'f吃饭'
+                }]
+            }
+        });
+    </script>
+</body>
+
+</html>

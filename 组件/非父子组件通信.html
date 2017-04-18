@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-aaa aaa="我是aaa"></my-aaa>
+        <my-bbb bbb="我是bbb"></my-bbb>
+    </div>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        Vue.component("my-aaa", {
+            props: ["aaa"],
+            template: "<p>{{aaa}}</p>",
+            mounted: function() {
+                var id = this.aaa;
+                bus.$on('id-selected', function() {
+                    console.log(id);
+                })
+            }
+        })
+        Vue.component("my-bbb", {
+            props: ["bbb"],
+            template: "<p v-on:click = 'idss()'>{{bbb}}</p>",
+            methods: {
+                idss: function() {
+                    bus.$emit('id-selected')
+                }
+            }
+
+        });
+        var bus = new Vue()
+            // 在组件 B 创建的钩子中监听事件
+            // bus.$on('id-selected', function(id) {
+            //         console.log(id);
+            //     })
+            // bus.$emit('id-selected', 1)
+        var vm = new Vue({
+            el: "#app"
+        });
+    </script>
+</body>
+
+</html>

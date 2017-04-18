@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>vue生命周期</title>
-    <script src="js/vue.js"></script>
+    <script src="../js/vue.js"></script>
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 </head>
 
@@ -22,25 +22,36 @@
                 a: "我是内容,在控制台输入myVue.a=123456,可以改变我的值"
             },
             beforeCreate: function() {
+                //实例刚刚被创建，属性计算之前，如data属性等，事件也未绑定(对应vue1.0的 init)
                 console.log("建立之前");
             },
             created: function() {
-                //在实例创建之后同步调用。此时实例已经结束解析选项，这意味着已建立：数据绑定，计算属性，方法，watcher/事件回调。
-                //但是还没有开始 DOM 编译，$el 还不存在,但是实例存在,即this.a存在,可打印出来 。
-                console.log("建立完成，但DOM为生成");
+                // 实例创建完成，属性已绑定，但DOM还未生成，$el属性还不存在(对应vue1.0的 created)
+                console.log("建立完成，但DOM还未生成");
             },
             beforeMount: function() {
+                // 模板编译/挂在之前(对应vue1.0的 beforeCompile)
                 console.log("未开始编译");
             },
             mounted: function() {
-                //在编译结束和 $el 第一次插入文档之后调用，如在第一次 attached 钩子之后调用。注意必须是由 Vue 插入（如 vm.$appendTo() 等方法或指令更新）才触发 ready 钩子。
+                // 模板编译/挂在之后(对应vue1.0的 compiled和ready)
                 console.log("一切准备好了");
             },
-            beforeDestroy: function() { //触发方式,在console里面打myVue.$destroy();
-                //在开始销毁实例时调用。此时实例仍然有功能。
+            beforeUpdate: function() {
+                // 组件更新之前，例如data属性改变了
+                console.log("更新之前");
+            },
+            updated: function() {
+                // 组件更新之后
+                console.log("更新之后");
+            },
+            beforeDestroy: function() {
+                //触发方式,在console里面打myVue.$destroy();
+                //在开始销毁实例前调用。此时实例仍然有功能。
                 console.log("销毁前");
             },
-            destroyed: function() { //触发方式,在console里面打myVue.$destroy();其中myVue.$destroy(true)是删除DOM节点,会触发detached函数,但是实例仍然存在
+            destroyed: function() {
+                //触发方式,在console里面打myVue.$destroy();其中myVue.$destroy(true)是删除DOM节点,会触发detached函数,但是实例仍然存在
                 //在实例被销毁之后调用。此时所有的绑定和实例的指令已经解绑，注意是解绑不是销毁,所有的子实例也已经被销毁。
                 console.log("已销毁");
             }

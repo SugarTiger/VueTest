@@ -8,15 +8,14 @@
 
 <body>
     <div id="example-2">
-        <simple-counter></simple-counter>
-        <simple-counter></simple-counter>
-        <simple-counter></simple-counter>
         <br>
         <input v-model="parentMsg">
         <br>
         <child :my-message="parentMsg"></child>
         <br>
         <lizefei :li-msg="parentMsg" :fei-msg="baM"></lizefei>
+        <HR></HR>
+        <example :prop-a="1111" prop-c="李泽飞" prop-f="9"></example>
     </div>
     <script type="text/javascript" src="../js/vue.js"></script>
     <script>
@@ -56,17 +55,20 @@
                         // 数组／对象的默认值应当由一个工厂函数返回
                         propE: {
                             type: Object,
-                            default: function () {
-                                return { message: 'hello' }
+                            default: function() {
+                                return {
+                                    message: 'hello'
+                                }
                             }
                         },
                         // 自定义验证函数
                         propF: {
-                            validator: function (value) {
+                            validator: function(value) {
                                 return value > 10
                             }
                         }
-                    }
+                    },
+                    template: '<h4>{{propA}}>>>>>>>{{propC}}>>>>>>>{{propE}}>>>>>>>>>>>>{{propF}}</h4>'
                 }
             }
         })

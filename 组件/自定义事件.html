@@ -17,51 +17,51 @@
         // 方法一：
         Vue.component('button-counter', {
             template: '<button v-on:click="increment">{{ counter }}</button>',
-            data: function () {
+            data: function() {
                 return {
                     counter: 0
                 }
             },
             methods: {
-                increment: function () {
+                increment: function() {
                     this.counter += 1
                     this.$emit('increments')
                 }
             },
         })
-        
+
         new Vue({
-            el: '#counter-event-example',
-            data: {
-                total: 0
-            },
-            methods: {
-                incrementTotal: function () {
-                    this.total += 1
+                el: '#counter-event-example',
+                data: {
+                    total: 0
+                },
+                methods: {
+                    incrementTotal: function() {
+                        this.total += 1
+                    }
                 }
-            }
-        })
-        // 方法二：
+            })
+            // 方法二：
         new Vue({
             el: '#counter-event-example',
             data: {
                 total: 0
             },
             methods: {
-                incrementTotal: function () {
+                incrementTotal: function() {
                     this.total += 1
                 }
             },
             components: {
                 buttonCounter: {
                     template: '<button v-on:click="increment">{{ counter }}</button>',
-                    data: function () {
+                    data: function() {
                         return {
                             counter: 0
                         }
                     },
                     methods: {
-                        increment: function () {
+                        increment: function() {
                             this.counter += 1
                             this.$emit('increments')
                         }

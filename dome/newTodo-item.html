@@ -80,12 +80,20 @@
         </ol>
         <p v-bind:class="{ active: isEmpt }">快点计划起来吧...</p>
     </div>
-
+    <template id="todoli">
+        <li>{{title}}<button v-on:click = "removeC">X</button></li>
+    </template>
     <script src="../js/vue.js"></script>
     <script>
         Vue.component("todo-item", {
-            template: '<li>{{title}}<button v-on:click = "$emit(\'remove\')">X</button></li>',
-            props: ['title', "index"]
+            // 使用 $emit(eventName) 触发事件
+            template: '#todoli',
+            props: ['title', "index"],
+            methods: {
+                removeC: function() {
+                    this.$emit('remove')
+                }
+            }
         });
         var vm = new Vue({
             el: "#app",
