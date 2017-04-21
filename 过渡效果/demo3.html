@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>dome1</title>
+    <script src="lodash.min.js"></script>
+    <style>
+        /*.flip-list-move {
+            transition: transform 1s;
+        }*/
+        /*=============*/
+        
+        .flip-list-item {
+            transition: all 1s;
+            margin-right: 10px;
+        }
+        
+        .flip-list-enter,
+        .flip-list-leave-active {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        
+        .flip-list-leave-active {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="demo">
+        <header>任务栏</header>
+        <input id="todo" type="text" v-model.trim="newTitle" @keyup.enter="addTodo" placeholder="输入任务,回车添加" />
+        <button v-on:click="shuffle">乱序</button>
+        <button class="button" @click="sortL">排序</button>
+        <transition-group name="flip-list" tag="div">
+            <!--v-bind:key="item"和v-bind:key="index"得出来的效果不一样-->
+            <todo-item class="flip-list-item" v-for="(item,index) in todos" v-bind:key="item" :index="index" :item="item" @remove="removeTodo(index);"></todo-item>
+            <!--<todo-item class="list-complete-item"   :title="todo" :index="index" @remove="removeTodo(index);"></todo-item>-->
+        </transition-group>
+    </div>
+    <template id="gg">
+        <li>{{index+1}}-{{item}}<button v-on:click = "removeC">X</button></li>
+    </template>
+    <template id="todoli">
+        <p>{{index+1}}-{{title}}<button v-on:click = "removeC">X</button></p>
+    </template>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        Vue.component('todo-item', {
+            props: ["item", "index"],
+            template: "#gg",
+            methods: {
+                removeC: function() {
+                    this.$emit('remove')
+                }
+            }
+        });
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                newTitle: "",
+                todos: [
+                    "吃饭", "555555", "睡觉", "444444"
+                ],
+                isEmpt: false,
+                isSort: true
+            },
+            methods: {
+                addTodo: function() {
+                    if (this.newTitle == "") {
+                        alert("任务不能为空哦！！！");
+                        return;
+                    }
+                    this.todos.push(this.newTitle);
+                    this.newTitle = "";
+                    this.isEmpt = false;
+                },
+                removeTodo: function(index) {
+                    this.todos.splice(index, 1)
+                    if (!this.todos.length) {
+                        this.isEmpt = true;
+                    }
+                },
+                shuffle: function() {
+                    this.todos = _.shuffle(this.todos)
+                },
+                sortL: function() {
+                    if (this.isSort) {
+                        this.todos.sort();
+                    } else {
+                        this.todos.reverse();
+                    }
+                    this.isSort = !this.isSort;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

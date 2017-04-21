@@ -15,6 +15,7 @@
             <p>这个是插在匿名slot里面的</p>
             <p>主要段落</p>
             <p slot="footer">这里是插在name="footer"的slot里面的</p>
+            <p>主要段落</p>
         </app-layout>
     </div>
     <script type="text/javascript" src="../js/vue.js"></script>
@@ -31,6 +32,15 @@
                             <slot name="footer"></slot>\
                         </footer>\
                        </div>',
+            render: function() {
+                console.log(this.$slots.default[0])
+                console.log(this.$slots.default[1])
+                console.log(this.$slots.default[2])
+                console.log(this.$slots.default[3])
+                console.log(this.$slots.default[4])
+                console.log(this.$slots.default[5])
+                console.log(this.$slots.default[6])
+            }
         })
         var vm = new Vue({
             el: "#app"

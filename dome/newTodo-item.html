@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>任务</title>
+    <script src="lodash.min.js"></script>
     <style>
         * {
             padding: 0;
@@ -39,17 +40,18 @@
             margin: 4px auto;
         }
         
-        #app ol {
+        #app .box {
             width: 77%;
             margin: 38px auto 22px auto;
             padding-left: 16px;
         }
         
-        #app ol li {
+        #app .box p {
             margin: 10px 0;
+            transition: all 1s;
         }
         
-        #app ol li button {
+        #app .box p button {
             background: red;
             color: #fff;
             border: none;
@@ -57,16 +59,35 @@
             padding: 0 3px;
         }
         
-        #app p {
+        #app i {
             display: none;
         }
         
-        #app p.active {
+        #app i.active {
             text-align: center;
             font-size: 18px;
             margin-bottom: 13px;
             color: #777;
             display: block;
+        }
+        
+        #app .button {
+            display: block;
+            width: 150px;
+            text-align: center;
+            margin-top: 28px;
+            border: 1px solid #0ec00c;
+        }
+        /*动画class*/
+        
+        .list-complete-enter,
+        .list-complete-leave-active {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+        
+        .list-complete-leave-active {
+            position: absolute;
         }
     </style>
 </head>
@@ -75,13 +96,18 @@
     <div id="app">
         <header>任务栏</header>
         <input id="todo" type="text" v-model.trim="newTitle" @keyup.enter="addTodo" placeholder="输入任务,回车添加" />
-        <ol>
-            <li is="todo-item" v-for="(todo,index) in todos" :title="todo" :index="index" @remove="removeTodo(index);"></li>
-        </ol>
-        <p v-bind:class="{ active: isEmpt }">快点计划起来吧...</p>
+        <button class="button" @click="shuffle">乱序</button>
+        <button class="button" @click="sortL">排序</button>
+        <!--v-bind:key是必须的-->
+        <!--v-bind:key="item"和v-bind:key="index"得出来的效果不一样-->
+        <transition-group name="list-complete" tag="div" class="box">
+            <todo-item class="list-complete-item" v-for="(todo,index) in todos" :key="todo" :title="todo" :index="index" @remove="removeTodo(index);"></todo-item>
+        </transition-group>
+        <!--================================================-->
+        <i v-bind:class="{ active: isEmpt }">快点计划起来吧...</i>
     </div>
     <template id="todoli">
-        <li>{{title}}<button v-on:click = "removeC">X</button></li>
+        <p>{{index+1}}-{{title}}<button v-on:click = "removeC">X</button></p>
     </template>
     <script src="../js/vue.js"></script>
     <script>
@@ -100,9 +126,10 @@
             data: {
                 newTitle: "",
                 todos: [
-                    "早睡早起", "吃早餐", "吃午餐", "吃晚餐"
+                    "吃饭", "555555", "睡觉", "444444"
                 ],
-                isEmpt: false
+                isEmpt: false,
+                isSort: true
             },
             methods: {
                 addTodo: function() {
@@ -115,10 +142,22 @@
                     this.isEmpt = false;
                 },
                 removeTodo: function(index) {
+                    console.log(index);
                     this.todos.splice(index, 1)
                     if (!this.todos.length) {
                         this.isEmpt = true;
                     }
+                },
+                shuffle: function() {
+                    this.todos = _.shuffle(this.todos)
+                },
+                sortL: function() {
+                    if (this.isSort) {
+                        this.todos.sort();
+                    } else {
+                        this.todos.reverse();
+                    }
+                    this.isSort = !this.isSort;
                 }
             }
         });

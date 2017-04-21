@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>dome1</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>111111111111111{{loginType}}</p>
+        <!--会报错，即使在控制台运行 vm.b="someThing" 结果还是一样，因为属性必须一开始就在 data 对象上存在才能让 Vue 转换它，这样才能让它是响应的-->
+        <!--Vue 不允许在已经创建的实例上动态添加新的根级响应式属性(root-level reactive property)。-->
+        <p>222222222222222{{b}}</p>
+    </div>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                loginType: 'username'
+            }
+        })
+    </script>
+</body>
+
+</html>

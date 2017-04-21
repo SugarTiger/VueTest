@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>dome1</title>
+    <style>
+        /* 4 个(CSS)类名在 enter/leave 的过渡中切换
+            v-enter: 定义进入过渡的开始状态。在元素被插入时生效，在下一个帧移除。
+            v-enter-active: 定义进入过渡的结束状态。在元素被插入时生效，在 transition/animation 完成之后移除。
+            v-leave: 定义离开过渡的开始状态。在离开过渡被触发时生效，在下一个帧移除。
+            v-leave-active: 定义离开过渡的结束状态。在离开过渡被触发时生效，在 transition/animation 完成之后移除。*/
+        
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: opacity 5s;
+        }
+        /*opacity比较特殊，可以不写进入过渡结束和离开过渡开始的状态，其它属性则不行,而且opacity不需要初始化，其它属性需要初始化，例如width和height*/
+        
+        .fade-enter-active,
+        .fade-leave {
+            opacity: 1;
+        }
+        
+        .fade-enter,
+        .fade-leave-active {
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="demo">
+        <button v-on:click="show = !show">
+            Toggle
+        </button>
+        <transition name="fade">
+            <p v-if="show">hello+hello+hello+hello+hello+hello+hello+hello</p>
+        </transition>
+    </div>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#demo',
+            data: {
+                show: true
+            }
+        })
+    </script>
+</body>
+
+</html>

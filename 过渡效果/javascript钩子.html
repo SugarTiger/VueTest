@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>dome1</title>
+    <script src="velocity.min.js"></script>
+</head>
+
+<body>
+    <div id="example-4">
+        <button @click="show = !show">
+            Toggle render
+        </button>
+        <!--v-bind:css="false"，Vue 会跳过 CSS 的检测。这也可以避免过渡过程中 CSS 的影响。-->
+        <transition v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:leave="leave" v-bind:css="false">
+            <p v-if="show">Dome</p>
+        </transition>
+    </div>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#example-4',
+            data: {
+                show: false
+            },
+            methods: {
+                beforeEnter: function(el) {
+                    console.log("进去过度之前", Date.now());
+                    el.style.opacity = 0
+                    el.style.transformOrigin = 'left'
+                },
+                enter: function(el, done) {
+                    console.log("进去过度", Date.now());
+                    Velocity(el, {
+                        opacity: 1,
+                        fontSize: '1.4em'
+                    }, {
+                        duration: 300
+                    })
+                    Velocity(el, {
+                        fontSize: '1em'
+                    }, {
+                        complete: done
+                    })
+                },
+                leave: function(el, done) {
+                    console.log("退出过度", Date.now());
+                    Velocity(el, {
+                        translateX: '15px',
+                        rotateZ: '50deg'
+                    }, {
+                        duration: 600
+                    })
+                    Velocity(el, {
+                        rotateZ: '100deg'
+                    }, {
+                        loop: 2
+                    })
+                    Velocity(el, {
+                        rotateZ: '45deg',
+                        translateY: '30px',
+                        translateX: '30px',
+                        opacity: 0
+                    }, {
+                        complete: done
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

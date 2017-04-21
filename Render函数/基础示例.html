@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>dome1</title>
+</head>
+
+<body>
+    <div id="app">
+        <anchored-heading :level="1">lizefei</anchored-heading>
+        <anchored-heading :level="2">lizefei</anchored-heading>
+        <anchored-heading :level="3">lizefei</anchored-heading>
+        <anchored-heading :level="4">lizefei</anchored-heading>
+        <anchored-heading :level="5">lizefei</anchored-heading>
+        <anchored-heading :level="6">lizefei</anchored-heading>
+    </div>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        Vue.component('anchored-heading', {
+            render: function(createElement) {
+                return createElement(
+                    'h' + this.level,
+                    this.$slots.default
+                );
+            },
+            props: {
+                level: {
+                    type: Number,
+                    required: true
+                }
+            }
+        });
+        var vm = new Vue({
+            el: "#app"
+        });
+    </script>
+</body>
+
+</html>

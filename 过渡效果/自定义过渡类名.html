@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>dome1</title>
+    <link href="animate.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div id="example-3">
+        <button @click="show = !show">
+    Toggle render
+  </button>
+        <transition name="custom-classes-transition" enter-active-class="animated tada" leave-active-class="animated bounceOutRight">
+            <p v-if="show">hello</p>
+        </transition>
+    </div>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#example-3',
+            data: {
+                show: true
+            }
+        })
+    </script>
+</body>
+
+</html>
