@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>dome1</title>
+</head>
+
+<body>
+    <div id="app">
+        <anchored-heading level="div"></anchored-heading>
+    </div>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        Vue.component('anchored-heading', {
+            render: function(createElement) {
+                // 等同于 var arr =  Array.apply(null, {length: 5})
+                var arr = [undefined, undefined, undefined, undefined, undefined];
+                return createElement(
+                    this.level, // tag name 标签名称
+                    // 子组件中的阵列
+                    [
+                        // Array.apply(null, {length: 20})此处详解Array.apply---http://www.cnblogs.com/afeihome/p/6750539.html
+                        arr.map(function() {
+                            return createElement('i', {
+                                style: {
+                                    display: 'block'
+                                }
+                            }, '我又来了')
+                        })
+                    ]
+                );
+            },
+            props: {
+                level: {
+                    type: String,
+                    required: true
+                }
+            }
+        });
+        var vm = new Vue({
+            el: "#app",
+        });
+    </script>
+</body>
+
+</html>

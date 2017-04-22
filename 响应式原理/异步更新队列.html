@@ -24,8 +24,14 @@
         })
         vm.message = 'new message' // 更改数据
             // 当你设置 vm.message = 'new message' ，该组件不会立即重新渲染
-        console.log(vm.$el.textContent) // 123
-            // 时间的长度会导致打印出来的vm.$el.textContent的值不一样
+        console.log(vm.$el.textContent); // 123
+        // for (var i = 0; i >= 0; i++) {
+        //     console.log(vm.$el.textContent);
+        //     if (vm.$el.textContent == 'new message') {
+        //         break;
+        //     }
+        // }
+        // 时间的长度会导致打印出来的vm.$el.textContent的值不一样
         setTimeout(function() {
             console.log(vm.$el.textContent) // new message
         }, 1000);

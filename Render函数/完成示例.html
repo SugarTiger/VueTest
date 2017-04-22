@@ -8,26 +8,72 @@
 
 <body>
     <div id="app">
-        <anchored-heading :level="1">lizefei</anchored-heading>
-        <anchored-heading :level="2">lizefei</anchored-heading>
-        <anchored-heading :level="3">lizefei</anchored-heading>
-        <anchored-heading :level="4">lizefei</anchored-heading>
-        <anchored-heading :level="5">lizefei</anchored-heading>
-        <anchored-heading :level="6">lizefei</anchored-heading>
+        <anchored-heading :level="1" ll="$其实我是假的">lizefei</anchored-heading>
+        <anchored-heading :level="2">李泽飞</anchored-heading>
+        <anchored-heading :level="3">li ze fei</anchored-heading>
+        <anchored-heading :level="4">阿飞</anchored-heading>
+        <anchored-heading :level="5">li--ze-fei</anchored-heading>
+        <anchored-heading :level="6">--lizefei--</anchored-heading>
     </div>
+    <!--目的是生成下面这种类型的模板，h标签里包含a标签，且a标签的name和href属性根据a标签里文本进行设置-->
+    <!--<h1>
+        <a name="hello-world" href="#hello-world">
+            Hello world!
+        </a>
+    </h1>-->
     <script type="text/javascript" src="../js/vue.js"></script>
     <script>
+        // map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值
+        // 创建一个获取对象的子文本的函数
+        var getChildrenTextContent = function(children) {
+            return children.map(function(node) {
+                return node.children ?
+                    getChildrenTextContent(node.children) :
+                    node.text
+            }).join('')
+        }
         Vue.component('anchored-heading', {
             render: function(createElement) {
+                console.log(this.$slots.default[0].text);
+                // create kebabCase id
+                // 正则：/\W+/g 对字符串中的非单词字符进行全局搜索，
+                // 正则：/(^\-|\-$)/g 对字符串中开头的-和结尾的-字符进行全局搜索，可以查找多组
+                var headingId = getChildrenTextContent(this.$slots.default).toLowerCase().replace(/\W+/g, '-').replace(/(^\-|\-$)/g, '');
                 return createElement(
-                    'h' + this.level,
-                    this.$slots.default
-                );
+                    'h' + this.level, {
+                        'class': {
+                            h: true,
+                            a: false
+                        },
+                        style: {
+                            color: 'red'
+                        }
+                    },
+                    // 子节点(VNodes)，可以是一个字符串或者一个数组. 可选参数.
+                    [
+                        createElement('a', {
+                                // 标签是HTML属性
+                                attrs: {
+                                    name: headingId,
+                                    href: '#' + headingId
+                                },
+                                // css样式
+                                style: {
+                                    color: 'red'
+                                }
+                            },
+                            // 子节点(VNodes)，可以是一个字符串或者一个数组. 可选参数.
+                            this.$slots.default[0].text + this.ll)
+                    ]
+                )
             },
             props: {
                 level: {
                     type: Number,
                     required: true
+                },
+                ll: {
+                    type: String,
                 }
             }
         });

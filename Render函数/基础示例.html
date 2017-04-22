@@ -9,19 +9,19 @@
 <body>
     <div id="app">
         <anchored-heading :level="1">lizefei</anchored-heading>
-        <anchored-heading :level="2">lizefei</anchored-heading>
-        <anchored-heading :level="3">lizefei</anchored-heading>
-        <anchored-heading :level="4">lizefei</anchored-heading>
-        <anchored-heading :level="5">lizefei</anchored-heading>
-        <anchored-heading :level="6">lizefei</anchored-heading>
+        <!--<anchored-heading :level="2"><a href="#">lizefei</a></anchored-heading>
+        <anchored-heading :level="3"><a href="#">lizefei</a></anchored-heading>
+        <anchored-heading :level="4"><a href="#">lizefei</a></anchored-heading>
+        <anchored-heading :level="5"><a href="#">lizefei</a></anchored-heading>
+        <anchored-heading :level="6"><a href="#">lizefei</a></anchored-heading>-->
     </div>
     <script type="text/javascript" src="../js/vue.js"></script>
     <script>
         Vue.component('anchored-heading', {
             render: function(createElement) {
                 return createElement(
-                    'h' + this.level,
-                    this.$slots.default
+                    'h' + this.level, // tag name 标签名称
+                    this.$slots.default // 子组件中的阵列
                 );
             },
             props: {
@@ -29,10 +29,14 @@
                     type: Number,
                     required: true
                 }
+            },
+            mounted: function() {
+                console.log(typeof this.$slots.default);
             }
         });
         var vm = new Vue({
-            el: "#app"
+            el: "#app",
+
         });
     </script>
 </body>

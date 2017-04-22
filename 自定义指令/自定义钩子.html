@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>基础dome</title>
+</head>
+
+<body>
+    <!--指令可以这样：v-demo:hello.a.b="message",hello为参数，.a,.b为修饰符，也可以这样v-dome="message",此时命令的参数为空-->
+    <div id="hook-arguments-example" v-demo="message">
+        <!--指令函数能够接受所有合法类型的 JavaScript 表达式-->
+        <p style="color:red" v-demo="{ color: 'white', text: 'hello!' }"></p>
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        Vue.directive('demo', {
+            bind: function(el, binding, vnode) {
+                // 使用 JSON.stringify() 方法将 JavaScript 对象转换为字符串
+                var s = JSON.stringify
+                el.innerHTML = el.innerHTML +
+                    'name: ' + s(binding.name) + '<br>' +
+                    'value: ' + s(binding.value) + '<br>' +
+                    'value.color: ' + s(binding.value.color) + '<br>' +
+                    'value.text: ' + s(binding.value.text) + '<br>' +
+                    'expression: ' + s(binding.expression) + '<br>' +
+                    'argument: ' + s(binding.arg) + '<br>' +
+                    'modifiers: ' + s(binding.modifiers) + '<br>' +
+                    'vnode keys: ' + Object.keys(vnode).join(', ')
+            }
+        })
+        new Vue({
+            el: '#hook-arguments-example',
+            data: {
+                message: 'hello!'
+            }
+        })
+    </script>
+</body>
+
+</html>
