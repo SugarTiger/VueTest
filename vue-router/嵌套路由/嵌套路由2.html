@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>嵌套路由</title>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/user/1440225">UserHome</router-link>
+        <router-view></router-view>
+    </div>
+    <script src="../../js/vue.js"></script>
+    <script src="../vue-router.js"></script>
+    <script>
+        const User = {
+            template: '\
+            <div class="user">\
+                <h2>User {{$route.params.id}}</h2>\
+                <router-view></router-view>\
+            </div>'
+        }
+        const UserProfile = {
+            template: "<p>UserProfile</p>"
+        }
+        const UserPosts = {
+            template: "<p>UserPosts</p>"
+        }
+        const UserHome = {
+            template: '\
+            <router-link to="/user/1440225/profile">Profile</router-link>\
+            <router-link to="/user/1440225/posts">Posts</router-link>'
+        }
+        const router = new VueRouter({
+            routes: [{
+                path: '/user/:id',
+                component: User,
+                children: [{
+                        // 当 /user/:id/profile 匹配成功，
+                        // UserProfile 会被渲染在 User 的 <router-view> 中
+                        path: 'profile',
+                        component: UserProfile
+                    }, {
+                        path: 'posts',
+                        component: UserPosts
+                    },
+
+                    // 当 /user/:id 匹配成功，
+                    // UserHome 会被渲染在 User 的 <router-view> 中
+                    {
+                        path: '',
+                        component: UserHome
+                    },
+                    // ...其他子路由
+                ]
+            }]
+        });
+
+        const vm = new Vue({
+            router
+        }).$mount("#app")
+    </script>
+</body>
+
+</html>

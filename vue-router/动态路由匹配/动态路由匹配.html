@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>动态路由匹配</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>
+            <router-link to='/user/foo/pwd/1440225'>Go to Foo</router-link>
+            <router-link to='/user/bar'>Go to Bar</router-link>
+        </p>
+        <router-view></router-view>
+    </div>
+    <script src="../../js/vue.js"></script>
+    <script src="../vue-router.js"></script>
+    <script>
+        // 一个『路径参数』使用冒号 : 标记。当匹配到一个路由时
+        // 参数值会被设置到 this.$route.params，可以在每个组件内使用。
+        // 于是，我们可以更新 User 的模板，输出当前用户的 ID：
+        // const User = {
+        //     template: '<div>User+{{$route.params.id}}</div>'
+        // }
+        const User = {
+            template: '<div>User+{{$route.params.id}}+++Pwd+{{$route.params.pwd}}</div>'
+        }
+        const router = new VueRouter({
+            routes: [
+                //动态路径参数  以冒号开头
+                {
+                    path: '/user/:id/pwd/:pwd',
+                    component: User
+                }
+            ]
+        });
+        var vm = new Vue({
+            router
+        }).$mount('#app');
+    </script>
+</body>
+
+</html>

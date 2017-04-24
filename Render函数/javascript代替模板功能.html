@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JavaScript代替模板功能</title>
+</head>
+
+<body>
+    <!--v-if  and v-for -->
+    <div id="app1">
+        <h2>v-if and v-for</h2>
+        <my-component></my-component>
+        <!--v-model-->
+        <h2>v-model</h2>
+        <my-input></my-input>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        // v-if  and v-for
+        Vue.component('my-component', {
+            render: function(createElement) {
+                if (this.items.length) {
+                    return createElement('ul', this.items.map(function(item) {
+                        return createElement('li', item.name)
+                    }))
+                } else {
+                    return createElement('p', 'No items found.')
+                }
+            },
+            data: function() {
+                return {
+                    items: []
+                }
+            }
+        });
+        // v-model
+        Vue.component('my-input', {
+            render: function(createElement) {
+                var self = this;
+                return createElement('div', [
+                    createElement('input', {
+                        domProps: {
+                            value: self.value
+                        },
+                        on: {
+                            input: function(event) {
+                                self.value = event.target.value
+                            }
+                        }
+                    }), createElement('p', self.value)
+                ])
+            },
+            data: function() {
+                return {
+                    value: ""
+                }
+            }
+        });
+        var vm = new Vue({
+            el: "#app1",
+        })
+    </script>
+</body>
+
+</html>
